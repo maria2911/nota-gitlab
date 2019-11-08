@@ -1,0 +1,211 @@
+GIT
+disediakan oleh: Hizam Mohd
+markdown cheatsheet
+
+Git
+
+Version Control
+Version Control adalah mengenai menyimpan segala maklumat perubahan pada kod aplikasi termasuk siapa membuat perubahan.
+Ini membolehkan kita mendapatkan kembali kod versi-versi terdahulu untuk apa-apa keperluan (mendapatkan kembali feature yang dibuang, atau support pengguna versi lama sistem).
+Ia juga digunakan untuk menyalurkan perubahan kod kepada pengguna (pengaturcara lain) supaya semua dalam team sentiasa mendapatkan kod terbaru.
+Antara version control terawal Source Code Control System yang dibina 1972. Konsep pengawalan versi kod terdahulu adalah seperti meminjam buku di perpustakaan. Untuk melakukan perubahan pada mana-mana kod, file kod tersebut di-checkout dan tiada pengaturcara lain dapat melakukan perubahan. Setelah pengaturcara tersebut membuat perubahan dan checkin kod tersebut barulah
+pengaturcara lain dapat melakukan perubahan.
+Ini tidaklah begitu efisyen tetapi sudah memadai dengan keperluan masa itu. Version Control terbaru adalah lebih intelligent dan membenarkan file diubah serentak dan ia akan menguruskan
+perubahan daripada pelbagai pengaturcara ini.
+
+Git
+Git adalah antara Version Control yang selain daripada dapat menjaga versi kod, ianya juga dapat melakukannya secara distributed. Ini bermakna history perubahan boleh disimpan ditempat berlainan dan diselaraskan sesama mereka kemudiannya. Contoh: terdapat 10 perubahan di A, 4 perubahan di B. Apabila perlu, perubahan dia A dan B di-sync untuk dapatkan satu versi kod.
+Ini adalah satu langkah penting kerana masalah utama pengaturcara mereka tidak sentiasa ada akses kepada Version Control server untuk commit perubahan kod mereka.
+
+Getting Git
+
+Server
+Kita menggunakan Gitlab untuk menjalankan git pada server.
+
+Client
+Terdapat pelbagai git client yang ada. Yang digunakan dalam latihan ini adalah gitforwindows :
+[gitforwindows](https://gitforwindows.org/)
+antara git ui lain:
+[tortoisegit](https://tortoisegit.org/download/)
+
+Git Concept
+
+Terminology
+
+Branch
+Ibaratnya satu copy dari kod asal. Perubahan pada versi ini boleh dimasukkan kedalam kod asal ataupun dibuang tanpa memberi kesan kepada file asal kod. Ianya juga digunakan sebagai rujukan keadaan kod (untuk production, untuk testing, untuk dev dan sebagainya)
+
+Checkout
+bertukar ke branch lain.
+
+Clone
+mendapatkan kod dari git repository.
+
+HEAD
+kod terbaru.
+
+Index/Staging
+Kawasan kerja(staging) yang akan digunakan git. Apabila commit dilakukan, git akan mengambil hanya file dalam Index ini.
+
+Merge
+Tindakan mengambil perubahan kod pada satu branch ke dalam branch lain.
+
+Pull
+Mencapai kod terbaru daripada tempat kod di 'clone'. Secara mudahnya, ini bermakna mendapatkan kod terbaru dari server.
+
+Push
+Mengemaskinin kod pada server dengan kod local.
+
+Repository (Repo)
+Database kod, folder dan apa sahaja maklumat mengenainya.
+
+Stash
+Satu tempat simpanan sementara untuk perubahan-perubahan yang belum bersedia untuk diberikan kepada git. Ianya perlu kerana untuk update satu-satu fail, keadaan fail semasa dikemaskini itu perlu dalam keadaan yang sudah dicommit dalam git. Jadi perubahan yang belum dicommit boleh dimasukkan dalam stash, fail ini akan kembali dalam keadaan asal (last commit) untuk dikemaskini git. Selepas kemaskini git dibuat, perubahan itu boleh dikembalikan daripada stash kepada fail tersebut.
+
+Tag
+Penanda pada sejarah git. Contohnya menandakan version kod ini dideploy untuk pengguna.
+
+Basic Git Workflow
+
+Who You Are
+Pada awalnya git akan meminta berikan info pengguna git jadi perlu
+run command dibawah di terminal/cmd :
+git config --global user.name "My Name"
+git config --global user.email myemail@google.com
+
+Bermula dengan projek
+clone project baru ke local
+git clone https://gitlab.com/zam3858/mytestproject.git myfolder
+
+Harian
+1) git pull -  Update kod local dari server 
+2) Edit kod.
+3) git add - Masukkan kod ke dalam staging 
+4) git commit - Menyimpan perubahan-perubahan dalam staging ke dalam git untuk diabadikan selamanya. :) 
+5) git push -  Hantar kod ke server untuk dikongsikan bersama (kebiasaanya perlu melakukan git pull sekali lagi ) 
+
+Git Add
+Git add memasukkan kod yang berubah ke dalam kawasan staging. Kod-kod dalam kawasan staging ini akan dimasukkan ke git semasa commit dilakukan.
+#Format
+git add .                                       //tambah semua file dan folder
+git add kodsaya.php                             //tambah kodsaya.php ke dalam staging
+git add namafolderdalamprojek/namafail.php      //tambah fail namafail.php dalam folder namafolderdalamprojek
+git add namafolderdalamprojek/*                 //masukkan semua fail dalam folder namafolderdalamprojek/ ke dalam staging
+
+Remove Code from Staging
+Untuk mengeluarkan kod yang di 'git add' dari kawasan staging, gunakan command:
+git reset namafail
+
+Git Pull/Push
+
+Pull
+Arahan git pull melakukan dua tindakan iaitu mendapatkan kod dari server dan melakukan merge keatas kod pada local. Dengan kata lain, ambil kod baru di server dan cuba update kod di local.
+git pull origin master 
+//atau 
+git pull
+
+Push
+Git push mengambil commit terbaru dilocal dan cuba menghantarnya ke server untuk dikonsikan kepada team lain.
+git push origin master
+//atau
+git push
+
+Git History
+Untuk melihat perubahan-perubahan dan kod-kod sebelum ini, arahan git log digunakan
+git log
+
+
+Ignoring Files and Folders
+Terdapat fail-fail yang tidak perlu dimasukkan ke dalam version control seperti fail konfigurasi ( config.php contohnya ).
+
+Merge Conflicts
+Conflicts terjadi apabila git menjumpai dua perubahan ditempat yang sama
+
+Selain status, git akan menandakan tempat conflict dan pengaturcara perlu memperbaiki kod tersebut
+
+bahagian atas adalah daripada server dan dibawahnya versi kod local.
+
+Git Branch
+Branch adalah antara sebab git begitu popular. Ianya seperti membuat satu versi lain kod.
+
+
+Create New Branch
+git branch mynewbranch
+
+Changing To New Branch
+git checkout mynewbranch
+
+Delete Branch
+git branch -D mynewbranch
+
+#delete remote
+git push origin --delete hotfix
+
+Day 2
+
+Git Tag
+Memberi penanda yang lebih bermakna untuk sesuatu version kod
+#dapatkan senarai tag
+git tag
+
+#dapatkan maklumat tag
+git show v1.3
+
+#tag yang proper
+git tag -a v1.4 -m "my version 1.4"
+-a = annotate. ini menyimpan lebih maklumat seperti maklumat pada commit
+
+#lighweight tag. ini hanya tag tapi tiada maklumat tambahan
+git tag v1.4 
+
+#untuk tag version kod yg terdahulu
+git tag -a v1.2 9fceb02
+
+#hantar 1 tag ke server
+git push origin v1.4
+
+#hantar semua tags ke server
+git push origin --tags
+tag tidak dihantar ke server bersama push. Ianya perlu dilakukan secara manual
+#hantar satu tag sahaja
+git push origin v1.5
+
+#hantar banyak2
+git push origin --tags
+
+#delete tag
+git tag -d v1.4-lw
+
+#beritahu server tag telah didelete
+git push origin :refs/tags/v1.4-lw
+untuk mendapatkan kod version yang telah ditanda dengan tag
+# -b create new branch
+git checkout -b version2 v2.0.0
+
+Git ignore
+file dan folder yang akan diignore boleh disenaraikan ke dalam fail
+.gitignore
+
+ignorefailni.php
+
+Git Blame
+view siapa yang edit bahagian2 pada fail.
+git blame namafail.php
+
+git blame -L 10,+1 fe25b6d^ -- src/options.cpp
+
+Git Stash
+Stash merupakan tempat simpanan sementara. Apa-apa perubahan kod disimpan, fail akan menjadi seperti last commit. Perubahan dalam stash ini dapat dikembalikan kemudian.
+#stash baru
+git stash
+
+#dapatkan senarai stash
+git stash list
+
+#mendapatkan kembali perubahan
+git stash apply
+
+#jikalau hendak membuat branch menggunakan stash
+git stash branch testchanges
+Membuang semua perubahan pada kod
+git clean
